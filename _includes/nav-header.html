@@ -1,0 +1,108 @@
+{% if site.navigation_header %}
+<nav class="nav  nav--header">
+  <!-- Apply flex display to the list -->
+  <ul class="list  list--nav" style="display: flex; align-items: center; width: 100%; padding: 0; list-style: none;">
+    
+    <!-- === Left-aligned Navigation Items === -->
+    {% for item in site.navigation_header %}
+      {% if item.url contains '://' %}
+        {% assign url = item.url %}
+      {% else %}
+        {% assign url = item.url | relative_url %}
+      {% endif %}
+      <li class="item  item--nav{% if item.url == page.url %}  item--current{% endif %}" style="margin-right: 1em;"> <!-- Add some right margin for spacing -->
+        <a href="{{ url }}">{{ item.title }}</a>
+      </li>
+    {% endfor %}
+
+    <li class="item  item--nav" style="margin-right: 1em;"> </li>
+
+    {% for link in site.social_links %}
+      {% if link[1] != blank %}
+        {% assign id = link[0] | downcase %}
+        <li class="item item--nav item--social-link" 
+            style="margin-left: 0.5em; display: inline-flex; align-items: center;"> 
+          <a href="{{ link[1] }}">
+            {% include icon.html id=id title=id %}
+          </a>
+        </li>
+      {% endif %}
+    {% endfor %}
+    
+  </ul>
+
+  <!-- Mobile Nav Toggle Button 
+  <button class="button  button--nav" aria-label="Menu toggle">
+   {% include icon.html id="nav" title="Menu" %}
+  </button>
+  -->
+</nav>
+{% else %}
+  {% include nav-default.html %}
+{% endif %}
+
+<!-- Existing JavaScript for mobile toggle
+<script type="text/javascript">
+ // Get list and button
+ const navList = document.querySelector('.header .list--nav')
+ const button  = document.querySelector('.header .button--nav')
+
+ // Hide nav and apply toggle
+ const collapseNav = () => {
+   // Check if the viewport width is less than your mobile breakpoint (e.g., 640px)
+   const isMobile = document.body.clientWidth < 640; 
+
+   if (isMobile) {
+     // Ensure display is block or similar when potentially visible on mobile
+     navList.style.display = 'block'; 
+     // Set initial collapsed state using margin or max-height
+     if (!navList.classList.contains('is-active')) { // Check if already active
+        navList.style.setProperty('--listHeight', `-${navList.offsetHeight}px`);
+        // Consider using max-height for smoother transitions
+        // navList.style.maxHeight = '0'; 
+        // navList.style.overflow = 'hidden';
+     }
+   } else {
+     // On desktop, remove mobile styles and ensure flex display
+     navList.removeAttribute('style'); // Clear all inline styles set by JS/CSS
+     navList.style.display = 'flex'; // Re-apply flex display for desktop
+     navList.classList.remove('is-active'); // Ensure active state is removed
+   }
+
+   // Only add button click listener if it doesn't exist or needs updating
+   if (button && !button.hasClickListener) { // Add a flag to prevent multiple listeners
+       button.onclick = () => {
+         navList.style.setProperty('transition', `margin .2s ease-in-out`); // Smoother transition
+         // Toggle active class for state management
+         navList.classList.toggle('is-active'); 
+
+         if (navList.classList.contains('is-active')) {
+           // Expand: remove negative margin or set max-height
+           navList.style.removeProperty('--listHeight');
+           // navList.style.maxHeight = navList.scrollHeight + 'px'; // Use scrollHeight for dynamic content
+         } else {
+           // Collapse: set negative margin or max-height to 0
+           navList.style.setProperty('--listHeight', `-${navList.offsetHeight}px`);
+           // navList.style.maxHeight = '0';
+         }
+       };
+       button.hasClickListener = true; // Mark button as having listener attached
+   } else if (!isMobile && button) {
+       // Optional: Clean up listener if switching to desktop and it's no longer needed
+       // button.onclick = null; 
+       // button.hasClickListener = false;
+   }
+ }
+
+ collapseNav(); // Initial call
+
+ // Debounce resize handler for performance
+ let resizeTimer;
+ window.addEventListener('resize', () => {
+   clearTimeout(resizeTimer);
+   resizeTimer = setTimeout(() => {
+     collapseNav();
+   }, 250); // Adjust delay as needed
+ });
+</script>
+ -->

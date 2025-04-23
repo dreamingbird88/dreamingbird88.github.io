@@ -1,0 +1,65 @@
+/* assets/styles.scss */
+
+/* --- Add the new styles below this line --- */
+// $color-primary: #3498db; // doesn't work
+
+/* Make share links inline within post-meta */
+.post-meta .share {
+  display: inline-block;
+  margin-left: 10px; /* Adjust spacing as needed */
+  vertical-align: middle; /* Align with text */
+}
+
+/* Style buttons within post-meta share */
+.post-meta .share .button {
+  margin: 0 2px; /* Adjust spacing between icons */
+  padding: 0;
+  line-height: 1; /* Ensure button height doesn't interfere */
+  background: none; /* Optional: remove button background */
+  border: none; /* Optional: remove button border */
+  display: inline-flex; /* Use flex to help align icon */
+  align-items: center; /* Center icon vertically within button */
+  vertical-align: middle; /* Align button with surrounding text */
+}
+
+/* Style the link itself */
+.post-meta .share .button a {
+  display: inline-flex; /* Ensure link behaves like flex container */
+  vertical-align: middle; /* Align link */
+}
+
+/* --- Icon Sizing --- */
+
+/* Option 1: More specific selector with 'em' (Try this first) */
+/*
+.post-meta small.post-meta .share .button .icon {
+  width: 1em;
+  height: 1em;
+  vertical-align: middle; // Keep for potential fallback alignment
+  // Optional: If SVG, match text color
+  // fill: currentColor;
+}
+*/
+
+/* Option 2: Using 'rem' (Try if Option 1 doesn't work) */
+/* Comment out Option 1 and uncomment this block */
+.post-meta small.post-meta .share .button .icon {
+  width: 0.8rem; // Adjust 0.8 as needed (e.g., 0.7rem, 0.9rem)
+  height: 0.8rem; // Keep same as width
+  vertical-align: middle;
+  // fill: currentColor;
+}
+
+/* Option 3: Using 'px' (Try if relative units fail) */
+/* Comment out Options 1 & 2 and uncomment this block */
+/*
+.post-meta small.post-meta .share .button .icon {
+  width: 7px; // Adjust 14px as needed (e.g., 12px, 16px)
+  height: 7px; // Keep same as width
+  vertical-align: middle;
+  // fill: currentColor;
+}
+*/
+
+/* --- End of new styles --- */
+
